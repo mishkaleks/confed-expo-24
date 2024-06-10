@@ -1,0 +1,75 @@
+.header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1156px;
+  margin: 25px 0;
+}
+
+.confedExpo {
+  font-weight: 700;
+  font-style: normal;
+  font-size: 48px;
+  line-height: 119%;
+  letter-spacing: -0.48px;
+  color: #FF7D7D;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+}
+
+.capptooIcon {
+  width: 230px;
+  height: auto;
+}
+
+.screverIcon {
+  width: 160px;
+  height: auto;
+}
+
+/* tablet */
+@media (max-width: 1199px) {
+  .header {
+    margin: 25px 0 35px;
+  }
+
+  .confedExpo {
+    font-size: 24px;
+    letter-spacing: -0.24px;
+  }
+
+  .capptooIcon {
+    width: 150px;
+  }
+
+  .screverIcon {
+    width: 105px;
+  }
+}
+
+/* mobile */
+@media (max-width: 767px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+    margin: 25px 0;
+  }
+
+  .confedExpo {
+    font-size: 12px;
+    letter-spacing: -0.12px;
+  }
+
+  .logoContainer {
+    gap: 24px;
+  }
+}

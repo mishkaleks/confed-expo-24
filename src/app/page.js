@@ -1,95 +1,66 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
 
-export default function Home() {
+// base
+import { useState } from 'react'
+import Image from 'next/image'
+
+// mui
+import useMediaQuery from '@mui/material/useMediaQuery'
+
+// components
+import Header from '@/components/ui/Header'
+import LinkedInConnect from '@/components/ui/LinkedInConnect'
+import CloudAccess from '@/components/ui/CloudAccess'
+
+// images
+import Figure from 'public/figure.png'
+
+// styles
+import styles from './page.module.css'
+
+export default function Root() {
+  const isMobile = useMediaQuery('(max-width:767px)')
+
+  const [showCloudAccess, setShowCloudAccess] = useState(false)
+  const [clickedCards, setClickedCards] = useState([])
+
+  const handleConnect = (index) => {
+    setClickedCards((prevClickedCards) => {
+      const newClickedCards = [...prevClickedCards]
+
+      if (!newClickedCards.includes(index)) {
+        newClickedCards.push(index)
+      }
+
+      if (newClickedCards.length >= 2) {
+        setShowCloudAccess(true)
+      }
+
+      return newClickedCards
+    })
+  }
+
+  const handleSkip = () => setShowCloudAccess(true)
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <Image
+        priority
+        className={styles.figure}
+        src={Figure}
+        alt="Figure"
+      />
+      <Header isMobile={isMobile} />
+      {showCloudAccess
+        ? <CloudAccess />
+        : (
+          <LinkedInConnect
+            isMobile={isMobile}
+            handleConnect={handleConnect}
+            handleSkip={handleSkip}
+          />
+        )
+      }
     </main>
-  );
+  )
 }
